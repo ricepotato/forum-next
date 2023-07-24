@@ -22,3 +22,14 @@
   color: grey;
   margin: 5px 0px;
 }
+button,
+a {
+  border: 1px solid #565656;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.list-item {
+  opacity: 1;
+  transition: all 0.3s;
+}

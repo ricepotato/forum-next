@@ -1,28 +1,14 @@
-import Link from "next/link";
-import { connectDB } from "@/util/database";
+import { getPosts } from "@/util/repository";
+import PostItem from "./PostItem";
 
-interface PostProps {
-  _id: string;
-  title: string;
-  content: string;
-}
+//export const dynamic = "force-dynamic";
 
 export default async function List() {
-  const db = (await connectDB).db("forum");
-  const result = (await db
-    .collection("post")
-    .find()
-    .toArray()) as unknown as PostProps[];
-
+  const results = await getPosts();
   return (
     <div className="list-bg">
-      {result.map((data) => (
-        <div key={data._id} className="list-item">
-          <h4>
-            <Link href={`/posts/${data._id}`}>{data.title}</Link>
-          </h4>
-          <p>{data.content}</p>
-        </div>
+      {results.map((data) => (
+        <PostItem key={data._id?.toString()} data={data} />
       ))}
     </div>
   );
